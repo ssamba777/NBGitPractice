@@ -6,12 +6,14 @@
 package plain;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.UIManager;
 import javax.swing.plaf.ComponentUI;
+import javax.swing.plaf.basic.BasicButtonListener;
 import javax.swing.plaf.basic.BasicButtonUI;
-import javax.swing.plaf.metal.MetalButtonUI;
 import sun.awt.AppContext;
 
 /**
@@ -21,7 +23,7 @@ import sun.awt.AppContext;
 public class PlainButtonUI extends BasicButtonUI {
     protected Color focusColor;
     protected Color selectColor;
-    protected Color disabledColor;
+    protected Color disabledTextColor;
     
     private static final Object PLAIN_BUTTON_UI_KEY = new Object();
  
@@ -46,10 +48,37 @@ public class PlainButtonUI extends BasicButtonUI {
         super.uninstallDefaults(b);
     }
     
-    
+    //Create Listeners
+    protected BasicButtonListener createButtonListener(AbstractButton b) {
+        return super.createButtonListener(b);
+    }
 
+    //Default Accessors
+    protected Color getSelectColor() {
+        selectColor = UIManager.getColor(getPropertyPrefix() + "select");
+        return selectColor;
+    }
+    
+    protected Color getDisabledTextColor() {
+        disabledTextColor = UIManager.getColor(getPropertyPrefix() + "disabledText");
+        
+        return disabledTextColor;
+    } 
+    
+    protected Color getFocusColor() {
+        focusColor = UIManager.getColor(getPropertyPrefix() + "focus");
+        
+        return focusColor;
+    }
+        
+    //paint
+    public void update(Graphics g, JComponent c) {
+    
+    }
+    
     public PlainButtonUI() {        
     }
+    
     public PlainButtonUI(JButton button) {        
     }
 }
